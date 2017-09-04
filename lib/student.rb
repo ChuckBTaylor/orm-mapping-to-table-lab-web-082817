@@ -1,10 +1,11 @@
 require 'pry'
 class Student
 
-  attr_accessor :name, :grade
+  attr_accessor :name, :grade, :id
   def initialize(name, grade, id = nil)
     @name = name
     @grade = grade
+    @id = id
   end
 
   def save
@@ -38,7 +39,8 @@ class Student
     SQL
     DB[:conn].execute(sql,stud_hash[:name],stud_hash[:grade])
     to_make = DB[:conn].execute("SELECT * FROM students").flatten
-    new_stud = Student.new(to_make[1],to_make[2])
+    new_stud = Student.new(to_make[1],to_make[2], to_make[0])
+    # binding.pry
     new_stud
 
   end
